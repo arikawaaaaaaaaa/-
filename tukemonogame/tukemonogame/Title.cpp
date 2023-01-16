@@ -7,6 +7,8 @@ Title::Title() {
 	OldY = -1;
 	flgY = 0;
 
+	Image = LoadGraph("images/title.png");
+
 	Credit = false;
 
 	//メニュー選択
@@ -20,15 +22,15 @@ AbstractScene* Title::Update() {
 
 	if (!Credit) {
 		//メニューカーソル（三角形）の座標
-		MenuY = MenuNum * 90;
+		MenuY = MenuNum * 180;
 		//メニューカーソル移動処理
 		//下方向
 		if (flgY == 0 && JoyPadY < -MARGIN) {
-			if (++MenuNum > 2) MenuNum = 0;
+			if (++MenuNum > 1) MenuNum = 0;
 		}
 		//上方向
 		if (flgY == 0 && JoyPadY > MARGIN) {
-			if (--MenuNum < 0) MenuNum = 2;
+			if (--MenuNum < 0) MenuNum = 1;
 		}
 
 		//メニュー選択
@@ -39,9 +41,6 @@ AbstractScene* Title::Update() {
 				//return new GameSelect();	//ゲーム選択画面へ
 				break;
 			case 1:
-				Credit = true;	//ゲーム選択画面へ
-				break;
-			case 2:
 				return nullptr;             //ゲーム終了
 				break;
 			}
@@ -57,8 +56,8 @@ AbstractScene* Title::Update() {
 }
 
 void Title::Draw() const {
-	DrawString(500, 255, "unti no zigoku", 0xffffff);
-	DrawFormatString(500, 270, 0xffffff, "%d", MenuNum);
+	DrawGraph(0, 0, Image, FALSE);
+	DrawBox(450, 510 + MenuY, 830, 515 + MenuY, 0x00ffcc, TRUE);
 }
 
 void Title::InitPad() {

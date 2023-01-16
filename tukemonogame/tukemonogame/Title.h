@@ -8,6 +8,8 @@ private:
 	int OldY;
 	int flgY;
 
+	int Image;
+
 	bool Credit;
 
 	int MenuY;
