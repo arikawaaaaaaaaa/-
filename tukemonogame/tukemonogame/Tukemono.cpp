@@ -24,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SceneManager sceneMng(new Title());
 
-	float NextTime = 0;		//フレーム毎の経過時間
+	float NextTime = GetNowCount();		//フレーム毎の経過時間
 
 	while (ProcessMessage() == 0 && sceneMng.Update() != nullptr) {
 		PAD_INPUT::UpdateKey();
