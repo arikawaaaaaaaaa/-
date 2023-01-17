@@ -1,4 +1,4 @@
-#include "Main.h"
+﻿#include "Main.h"
 #include "PadInput.h"
 
 #define WIDTH 1280
@@ -46,7 +46,7 @@ Main::Main() {
 }
 
 
-AbstractScene* Main::Update() 
+AbstractScene* Main::Update()
 {
 	InitPad();
 
@@ -58,41 +58,38 @@ AbstractScene* Main::Update()
 		if (Anime >= 60) Phase++;
 	}
 	else if (Phase == 2) {
-	switch (timeState)
-	{
-	case 0:
-		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
+		switch (timeState)
 		{
-			startTime = GetNowCount();
+		case 0:
+				startTime = GetNowCount();
 
-			timeState = 1;
+				timeState = 1;
+			break;
+
+		case 1:
+			getTime = 0 + (GetNowCount() - startTime); /*�v�����Ԃ��v��*/
+
+			if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
+			{
+				saveTime = getTime; /*�v�����Ԃ�ۑ�����*/
+
+				timeState = 2; /*����*/
+			}
+			break;
+
+		case 2:
+			getTime = 0; /*���Ԃ����Z�b�g*/
+
+			scoreTime = setTime[0] - saveTime; /*�X�R�A�����߂�*/
+
+			if (scoreTime < 0) /*0��菬�����Ƃ�*/
+			{
+				scoreTime *= -1; /*�}�C�i�X��������v���X�ɂ���*/
+			}
+			timeState = 0;
+			Phase++;
+			break;
 		}
-		break;
-
-	case 1:
-		getTime = 0 + (GetNowCount() - startTime); /*�v�����Ԃ��v��*/
-
-		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
-		{
-			saveTime = getTime; /*�v�����Ԃ�ۑ�����*/
-
-			timeState = 2; /*����*/
-		}
-		break;
-
-	case 2:
-		getTime = 0; /*���Ԃ����Z�b�g*/
-
-		scoreTime = setTime[0] - saveTime; /*�X�R�A�����߂�*/
-
-		if (scoreTime < 0) /*0��菬�����Ƃ�*/
-		{
-			scoreTime *= -1; /*�}�C�i�X��������v���X�ɂ���*/
-		}
-		timeState = 0;
-		Phase = 0;
-		break;
-	}
 	}
 	else if (Phase == 3) {
 		Anime--;
@@ -104,22 +101,28 @@ AbstractScene* Main::Update()
 			Target = GetRand(4);
 		}
 
-	/* ���Ԍo�ߏ��� */
+		/* ���Ԍo�ߏ��� */
 
+	}
 	return this;
 }
 
 void Main::Draw() const {
 
 	DrawGraph(0, 0, Image, TRUE);
+	
+	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[0] / 1000); /*�ڕW����*/
+	DrawFormatString(300, 200, 0x0000000, "%0.2f", getTime / 1000);    /*�o�ߎ���*/
+	DrawFormatString(300, 250, 0x0000000, "%0.2f", saveTime / 1000);   /*�ۑ�����*/
+	DrawFormatString(300, 350, 0x0000000, "%0.2f", scoreTime / 1000);  /*�X�R�A*/
 
 	if (Phase == 0) {
 		int sizeX, sizeY;
 		GetGraphSize(MaterialImg[Target], &sizeX, &sizeY);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) - (sizeY / 2), MaterialImg[Target], TRUE);
 
-		sizeX = GetDrawStringWidth("��i��", -1) / 2;
-		DrawString(WIDTH / 2 - sizeX, 60, "��i��", 0x00ff00);
+		sizeX = GetDrawStringWidth("1品目", -1) / 2;
+		DrawString(WIDTH / 2 - sizeX, 60, "1品目", 0x00ff00);
 	}
 	else if (Phase <= 2) {
 		int sizeX, sizeY;
@@ -150,14 +153,8 @@ void Main::Draw() const {
 
 	}
 
-	DrawGraph(0, 0, Image, FALSE);
-
 	/*���ԕ\��*/
-	SetFontSize(40);
-	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[0] / 1000); /*�ڕW����*/
-	DrawFormatString(300, 170, 0x0000000, "%0.2f", getTime / 1000);    /*�o�ߎ���*/
-	DrawFormatString(300, 200, 0x0000000, "%0.2f", saveTime / 1000);   /*�ۑ�����*/
-	DrawFormatString(300, 300, 0x0000000, "%0.2f", scoreTime / 1000);  /*�X�R�A*/
+
 }
 
 void Main::InitPad() 
