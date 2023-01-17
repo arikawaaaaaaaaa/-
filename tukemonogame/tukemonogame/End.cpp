@@ -11,6 +11,7 @@ End::End() {
 AbstractScene* End::Update() {
 	InitPad();
 
+	//‚P•bŒã‚ÉƒQ[ƒ€I—¹
 	WaitTimer(1000);
 	return nullptr;
 }
