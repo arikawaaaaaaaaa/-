@@ -2,20 +2,17 @@
 #include "PadInput.h"
 #include"SceneManager.h"
 
-static int StartTime;
-int NowTime;
-
 End::End() {
 
 	Image = LoadGraph("images/end.png");
-	static int StartTime = GetNowCount();
-	NowTime = GetNowCount();
+
 }
 
 AbstractScene* End::Update() {
 	InitPad();
 
-	if (NowTime >= (StartTime + 3000))return nullptr;
+	WaitTimer(1000);
+	return nullptr;
 }
 
 void End::Draw() const {
