@@ -6,36 +6,40 @@ Main::Main()
 
 	Image = LoadGraph("images/kitchen.png");
 
+	setTime[0] = { 10000 }; /*時間設定*/
+	setTime[1] = { 20000 }; /*時間設定*/
+	setTime[2] = { 500 };/*時間設定*/
+
+	getTime = 0; /*経過時間取得*/
+
+	startTime = 0; //スタート時間
+
+	saveTime = 0; /*時間保存*/
+
+	scoreTime = 0; /*スコア*/
+
+	timeState = 0; /*選択*/
+
 }
 
-int g_NowKey;     //今回の入力キー
-
-float setTime[3] = { 10000 ,20000,500 }; /*時間設定*/
-
-float getTime = 0; /*経過時間取得*/
-
-float startTime = 0; //スタート時間
-
-float saveTime; /*時間保存*/
-
-float scoreTime = 0; /*スコア*/
-
-int timeState; /*選択*/
 
 AbstractScene* Main::Update() 
 {
 	InitPad();
 
-	if (PAD_INPUT::OnClick(XINPUT_BUTTON_A))
-	{
-		startTime = GetNowCount();
-
-		timeState = 1;
-	}
 
 	/* 時間経過処理 */
 	switch (timeState)
 	{
+	case 0:
+		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
+		{
+			startTime = GetNowCount();
+
+			timeState = 1;
+		}
+		break;
+
 	case 1:
 		getTime = 0 + (GetNowCount() - startTime); /*計測時間を計る*/
 
@@ -56,6 +60,7 @@ AbstractScene* Main::Update()
 		{
 			scoreTime *= -1; /*マイナスだったらプラスにする*/
 		}
+		timeState = 0;
 		break;
 	}
 
