@@ -47,6 +47,12 @@ AbstractScene* Main::Update() {
 		Anime--;
 		if (Anime == 0) Phase++;
 	}
+	else if (Phase == 4) {
+		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B)) {
+			Phase = 0;
+			Target = GetRand(4);
+		}
+	}
 
 	return this;
 }
