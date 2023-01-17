@@ -1,4 +1,4 @@
-#include "Main.h"
+ï»¿#include "Main.h"
 #include "PadInput.h"
 
 Main::Main()
@@ -6,19 +6,19 @@ Main::Main()
 
 	Image = LoadGraph("images/kitchen.png");
 
-	setTime[0] = { 10000 }; /*ŠÔİ’è*/
-	setTime[1] = { 20000 }; /*ŠÔİ’è*/
-	setTime[2] = { 500 };/*ŠÔİ’è*/
+	setTime[0] = { 10000 }; /*æ™‚é–“è¨­å®š*/
+	setTime[1] = { 20000 }; /*æ™‚é–“è¨­å®š*/
+	setTime[2] = { 500 };/*æ™‚é–“è¨­å®š*/
 
-	getTime = 0; /*Œo‰ßŠÔæ“¾*/
+	getTime = 0; /*çµŒéæ™‚é–“å–å¾—*/
 
-	startTime = 0; //ƒXƒ^[ƒgŠÔ
+	startTime = 0; //ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚é–“
 
-	saveTime = 0; /*ŠÔ•Û‘¶*/
+	saveTime = 0; /*æ™‚é–“ä¿å­˜*/
 
-	scoreTime = 0; /*ƒXƒRƒA*/
+	scoreTime = 0; /*ã‚¹ã‚³ã‚¢*/
 
-	timeState = 0; /*‘I‘ğ*/
+	timeState = 0; /*é¸æŠ*/
 
 }
 
@@ -28,7 +28,7 @@ AbstractScene* Main::Update()
 	InitPad();
 
 
-	/* ŠÔŒo‰ßˆ— */
+	/* æ™‚é–“çµŒéå‡¦ç† */
 	switch (timeState)
 	{
 	case 0:
@@ -41,24 +41,24 @@ AbstractScene* Main::Update()
 		break;
 
 	case 1:
-		getTime = 0 + (GetNowCount() - startTime); /*Œv‘ªŠÔ‚ğŒv‚é*/
+		getTime = 0 + (GetNowCount() - startTime); /*è¨ˆæ¸¬æ™‚é–“ã‚’è¨ˆã‚‹*/
 
 		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
 		{
-			saveTime = getTime; /*Œv‘ªŠÔ‚ğ•Û‘¶‚·‚é*/
+			saveTime = getTime; /*è¨ˆæ¸¬æ™‚é–“ã‚’ä¿å­˜ã™ã‚‹*/
 
-			timeState = 2; /*Ÿ‚Ö*/
+			timeState = 2; /*æ¬¡ã¸*/
 		}
 		break;
 
 	case 2:
-		getTime = 0; /*ŠÔ‚ğƒŠƒZƒbƒg*/
+		getTime = 0; /*æ™‚é–“ã‚’ãƒªã‚»ãƒƒãƒˆ*/
 
-		scoreTime = setTime[0] - saveTime; /*ƒXƒRƒA‚ğ‹‚ß‚é*/
+		scoreTime = setTime[0] - saveTime; /*ã‚¹ã‚³ã‚¢ã‚’æ±‚ã‚ã‚‹*/
 
-		if (scoreTime < 0) /*0‚æ‚è¬‚³‚¢‚Æ‚«*/
+		if (scoreTime < 0) /*0ã‚ˆã‚Šå°ã•ã„ã¨ã*/
 		{
-			scoreTime *= -1; /*ƒ}ƒCƒiƒX‚¾‚Á‚½‚çƒvƒ‰ƒX‚É‚·‚é*/
+			scoreTime *= -1; /*ãƒã‚¤ãƒŠã‚¹ã ã£ãŸã‚‰ãƒ—ãƒ©ã‚¹ã«ã™ã‚‹*/
 		}
 		timeState = 0;
 		break;
@@ -71,12 +71,12 @@ void Main::Draw() const
 {
 	DrawGraph(0, 0, Image, FALSE);
 
-	/*ŠÔ•\¦*/
+	/*æ™‚é–“è¡¨ç¤º*/
 	SetFontSize(40);
-	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[0] / 1000); /*–Ú•WŠÔ*/
-	DrawFormatString(300, 170, 0x0000000, "%0.2f", getTime / 1000);    /*Œo‰ßŠÔ*/
-	DrawFormatString(300, 200, 0x0000000, "%0.2f", saveTime / 1000);   /*•Û‘¶ŠÔ*/
-	DrawFormatString(300, 300, 0x0000000, "%0.2f", scoreTime / 1000);  /*ƒXƒRƒA*/
+	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[0] / 1000); /*ç›®æ¨™æ™‚é–“*/
+	DrawFormatString(300, 170, 0x0000000, "%0.2f", getTime / 1000);    /*çµŒéæ™‚é–“*/
+	DrawFormatString(300, 200, 0x0000000, "%0.2f", saveTime / 1000);   /*ä¿å­˜æ™‚é–“*/
+	DrawFormatString(300, 300, 0x0000000, "%0.2f", scoreTime / 1000);  /*ã‚¹ã‚³ã‚¢*/
 }
 
 void Main::InitPad() 
