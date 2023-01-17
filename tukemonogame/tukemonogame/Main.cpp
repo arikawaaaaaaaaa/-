@@ -4,20 +4,21 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
+
 Main::Main() {
 	Target = GetRand(4);
 
-	MaterialImg[0] = LoadGraph("images/hakusai.png");	//Þ—¿‰æ‘œ
-	MaterialImg[1] = LoadGraph("images/hakusai.png");	//Þ—¿‰æ‘œ
-	MaterialImg[2] = LoadGraph("images/kyuuri.png");	//Þ—¿‰æ‘œ
-	MaterialImg[3] = LoadGraph("images/shinsyouga.png");	//Þ—¿‰æ‘œ
-	MaterialImg[4] = LoadGraph("images/zaasai_motomura.png");	//Þ—¿‰æ‘œ
+	MaterialImg[0] = LoadGraph("images/hakusai.png");	//ï¿½Þ—ï¿½ï¿½æ‘œ
+	MaterialImg[1] = LoadGraph("images/hakusai.png");	//ï¿½Þ—ï¿½ï¿½æ‘œ
+	MaterialImg[2] = LoadGraph("images/kyuuri.png");	//ï¿½Þ—ï¿½ï¿½æ‘œ
+	MaterialImg[3] = LoadGraph("images/shinsyouga.png");	//ï¿½Þ—ï¿½ï¿½æ‘œ
+	MaterialImg[4] = LoadGraph("images/zaasai_motomura.png");	//ï¿½Þ—ï¿½ï¿½æ‘œ
 
-	dishImg[0] = LoadGraph("images/hakusai_ok.png");		//—¿—‰æ‘œ
-	dishImg[1] = LoadGraph("images/kimuchi_ok.png");		//—¿—‰æ‘œ
-	dishImg[2] = LoadGraph("images/kyuuri_ok.png");		//—¿—‰æ‘œ
-	dishImg[3] = LoadGraph("images/shinsyouga_ok.png");		//—¿—‰æ‘œ
-	dishImg[4] = LoadGraph("images/zaasai_ok.png");		//—¿—‰æ‘œ
+	dishImg[0] = LoadGraph("images/hakusai_ok.png");		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
+	dishImg[1] = LoadGraph("images/kimuchi_ok.png");		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
+	dishImg[2] = LoadGraph("images/kyuuri_ok.png");		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
+	dishImg[3] = LoadGraph("images/shinsyouga_ok.png");		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
+	dishImg[4] = LoadGraph("images/zaasai_ok.png");		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
 
 	Pot[0] = LoadGraph("images/potback.png");
 	Pot[1] = LoadGraph("images/potflont.png");
@@ -28,9 +29,25 @@ Main::Main() {
 
 	Phase = 0;
 	Anime = 0;
+	setTime[0] = { 10000 }; /*ï¿½ï¿½ï¿½ÔÝ’ï¿½*/
+	setTime[1] = { 20000 }; /*ï¿½ï¿½ï¿½ÔÝ’ï¿½*/
+	setTime[2] = { 500 };/*ï¿½ï¿½ï¿½ÔÝ’ï¿½*/
+
+	getTime = 0; /*ï¿½oï¿½ßŽï¿½ï¿½ÔŽæ“¾*/
+
+	startTime = 0; //ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
+
+	saveTime = 0; /*ï¿½ï¿½ï¿½Ô•Û‘ï¿½*/
+
+	scoreTime = 0; /*ï¿½Xï¿½Rï¿½A*/
+
+	timeState = 0; /*ï¿½Iï¿½ï¿½*/
+
 }
 
-AbstractScene* Main::Update() {
+
+AbstractScene* Main::Update() 
+{
 	InitPad();
 
 	if (Phase == 0) {
@@ -41,7 +58,41 @@ AbstractScene* Main::Update() {
 		if (Anime >= 60) Phase++;
 	}
 	else if (Phase == 2) {
-		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B)) Phase++;
+	switch (timeState)
+	{
+	case 0:
+		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
+		{
+			startTime = GetNowCount();
+
+			timeState = 1;
+		}
+		break;
+
+	case 1:
+		getTime = 0 + (GetNowCount() - startTime); /*ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½vï¿½ï¿½*/
+
+		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
+		{
+			saveTime = getTime; /*ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Û‘ï¿½ï¿½ï¿½ï¿½ï¿½*/
+
+			timeState = 2; /*ï¿½ï¿½ï¿½ï¿½*/
+		}
+		break;
+
+	case 2:
+		getTime = 0; /*ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g*/
+
+		scoreTime = setTime[0] - saveTime; /*ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½*/
+
+		if (scoreTime < 0) /*0ï¿½ï¿½è¬ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½*/
+		{
+			scoreTime *= -1; /*ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Xï¿½É‚ï¿½ï¿½ï¿½*/
+		}
+		timeState = 0;
+		Phase = 0;
+		break;
+	}
 	}
 	else if (Phase == 3) {
 		Anime--;
@@ -52,7 +103,8 @@ AbstractScene* Main::Update() {
 			Phase = 0;
 			Target = GetRand(4);
 		}
-	}
+
+	/* ï¿½ï¿½ï¿½ÔŒoï¿½ßï¿½ï¿½ï¿½ */
 
 	return this;
 }
@@ -66,8 +118,8 @@ void Main::Draw() const {
 		GetGraphSize(MaterialImg[Target], &sizeX, &sizeY);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) - (sizeY / 2), MaterialImg[Target], TRUE);
 
-		sizeX = GetDrawStringWidth("ˆê•i–Ú", -1) / 2;
-		DrawString(WIDTH / 2 - sizeX, 60, "ˆê•i–Ú", 0x00ff00);
+		sizeX = GetDrawStringWidth("ï¿½ï¿½iï¿½ï¿½", -1) / 2;
+		DrawString(WIDTH / 2 - sizeX, 60, "ï¿½ï¿½iï¿½ï¿½", 0x00ff00);
 	}
 	else if (Phase <= 2) {
 		int sizeX, sizeY;
@@ -98,8 +150,17 @@ void Main::Draw() const {
 
 	}
 
+	DrawGraph(0, 0, Image, FALSE);
+
+	/*ï¿½ï¿½ï¿½Ô•\ï¿½ï¿½*/
+	SetFontSize(40);
+	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[0] / 1000); /*ï¿½Ú•Wï¿½ï¿½ï¿½ï¿½*/
+	DrawFormatString(300, 170, 0x0000000, "%0.2f", getTime / 1000);    /*ï¿½oï¿½ßŽï¿½ï¿½ï¿½*/
+	DrawFormatString(300, 200, 0x0000000, "%0.2f", saveTime / 1000);   /*ï¿½Û‘ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	DrawFormatString(300, 300, 0x0000000, "%0.2f", scoreTime / 1000);  /*ï¿½Xï¿½Rï¿½A*/
 }
 
-void Main::InitPad() {
+void Main::InitPad() 
+{
 
 }

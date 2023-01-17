@@ -4,15 +4,23 @@
 class Main : public AbstractScene
 {
 private:
-	int Target;			//•i–Ú‚ğŒˆ‚ß‚é•Ï”
+	int Target;			//ï¿½iï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ß‚ï¿½Ïï¿½
 
-	int MaterialImg[5];	//Ş—¿‰æ‘œ
-	int dishImg[5];		//—¿—‰æ‘œ
-	int Pot[3];			//šâ‰æ‘œ
+	int MaterialImg[5];	//ï¿½Ş—ï¿½ï¿½æ‘œ
+	int dishImg[5];		//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œ
+	int Pot[3];			//ï¿½ï¿½æ‘œ
 	int Image;
 
-	int Phase;			//‰‰ois“x
-	int Anime;			//ƒAƒjƒ[ƒVƒ‡ƒ“—p
+	int Phase;			//ï¿½ï¿½ï¿½oï¿½iï¿½sï¿½x
+	int Anime;			//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½p
+
+	float setTime[3]; /*ï¿½ï¿½ï¿½Ôİ’ï¿½*/
+	float getTime; /*ï¿½oï¿½ßï¿½ï¿½Ôæ“¾*/
+	float startTime; //ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
+	float saveTime; /*ï¿½ï¿½ï¿½Ô•Û‘ï¿½*/
+	float scoreTime; /*ï¿½Xï¿½Rï¿½A*/
+	int timeState; /*ï¿½Iï¿½ï¿½*/
+
 public:
 	void InitPad();
 	Main();
