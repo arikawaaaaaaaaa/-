@@ -1,6 +1,7 @@
 #include "Title.h"
 #include "Main.h"
 #include "PadInput.h"
+#include "End.h"
 
 Title::Title() {
 	JoyPadX = -1;
@@ -39,7 +40,7 @@ AbstractScene* Title::Update() {
 				return new Main();	//ƒQ[ƒ€‚Ö
 				break;
 			case 1:
-				return nullptr;             //ƒQ[ƒ€I—¹
+				return new End();             //ƒQ[ƒ€I—¹
 				break;
 			}
 		}

@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	float NextTime = 0;		//フレーム毎の経過時間
 
-	while (ProcessMessage() == 0 && sceneMng.Update() != nullptr) {
+	while (ProcessMessage() == 0 && sceneMng.Update() != nullptr || NULL) {
 		PAD_INPUT::UpdateKey();
 		//ESCAPEキーで終了
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) DxLib_End();

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Tukemono.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="End.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="SceneManager.h" />
