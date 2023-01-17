@@ -1,4 +1,5 @@
 #include "Title.h"
+#include "Main.h"
 #include "PadInput.h"
 
 Title::Title() {
@@ -9,8 +10,6 @@ Title::Title() {
 
 	Image = LoadGraph("images/title.png");
 
-	Credit = false;
-
 	//メニュー選択
 	MenuY = 0;
 	MenuNum = 0;
@@ -20,7 +19,6 @@ Title::Title() {
 AbstractScene* Title::Update() {
 	InitPad();
 
-	if (!Credit) {
 		//メニューカーソル（三角形）の座標
 		MenuY = MenuNum * 180;
 		//メニューカーソル移動処理
@@ -38,20 +36,13 @@ AbstractScene* Title::Update() {
 			switch (MenuNum)
 			{
 			case 0:
-				//return new GameSelect();	//ゲーム選択画面へ
+				return new Main();	//ゲームへ
 				break;
 			case 1:
 				return nullptr;             //ゲーム終了
 				break;
 			}
 		}
-	}
-	else {
-		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B)) {
-			Credit = false;
-		}
-	}
-
 	return this;
 }
 
