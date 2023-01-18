@@ -1,9 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "SceneManager.h"
 #include "common.h"
 #include <DxLib.h>
 
-class Main : public AbstractScene
+class Result : public AbstractScene
 {
 private:
 	int Target;			//�i�ڂ����߂�ϐ�
@@ -18,7 +18,6 @@ private:
 	int Image;
 
 	int menu;			//品目数
-
 	CookResult result[3];	//完成結果
 
 	int Phase;			//���o�i�s�x
@@ -30,12 +29,12 @@ private:
 	float startTime; //�X�^�[�g����
 	float saveTime; /*���ԕۑ�*/
 	float scoreTime; /*�X�R�A*/
-	int timeState; 
+	int timeState;
 
 public:
 	void InitPad();
-	Main();
-	virtual ~Main() {};
+	Result(CookResult result[3], float score);
+	virtual ~Result() {};
 	virtual AbstractScene* Update() override;
 	virtual void Draw() const override;
 };

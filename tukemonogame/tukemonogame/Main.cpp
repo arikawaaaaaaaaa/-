@@ -1,4 +1,5 @@
 ﻿#include "Main.h"
+#include "Result.h"
 #include "PadInput.h"
 
 #define WIDTH 1280
@@ -26,6 +27,9 @@ Main::Main() {
 
 	rotten = LoadGraph("images/failure.png");	//失敗料理
 
+	cat = LoadGraph("images/cat.png");	//ねこ
+	Button = LoadGraph("images/button.png");	//ボタン
+
 	SetFontSize(100);
 	Image = LoadGraph("images/kitchen.png");
 
@@ -37,6 +41,7 @@ Main::Main() {
 
 	Phase = 0;
 	Anime = 0;
+	CatAnime = 0;
 
 	setTime[0] = { 10000 }; /*���Ԑݒ�*/
 	setTime[1] = { 17000 }; /*���Ԑݒ�*/
@@ -80,6 +85,8 @@ AbstractScene* Main::Update()
 		case 1:
 			getTime = 0 + (GetNowCount() - startTime); /*�v�����Ԃ��v��*/
 
+			if (setTime[Target] * 0.3 < getTime && CatAnime < 60)CatAnime++;
+
 			if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
 			{
 				saveTime = getTime; /*�v�����Ԃ�ۑ�����*/
@@ -91,12 +98,13 @@ AbstractScene* Main::Update()
 		case 2:
 			getTime = 0; /*���Ԃ����Z�b�g*/
 
-			scoreTime = setTime[Target] - saveTime; /*�X�R�A�����߂�*/
-
-			if (scoreTime < 0) /*0��菬�����Ƃ�*/
-			{
-				scoreTime *= -1; /*�}�C�i�X��������v���X�ɂ���*/
+			if (setTime[Target] <= saveTime) {
+				scoreTime += saveTime - setTime[Target]; /*�X�R�A�����߂�*/
 			}
+			else {
+				scoreTime += setTime[Target] - saveTime; /*�X�R�A�����߂�*/
+			}
+
 			timeState = 0;
 			Phase++;
 			break;
@@ -104,7 +112,11 @@ AbstractScene* Main::Update()
 	}
 	else if (Phase == 3) {
 		Anime--;
-		if (Anime == 0) Phase++;
+		CatAnime--;
+		if (Anime == 0) {
+			CatAnime = 0;
+			Phase++;
+		}
 	}
 	else if (Phase == 4) {
 		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B)) {
@@ -114,11 +126,15 @@ AbstractScene* Main::Update()
 			if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
 				result[menu - 1].quality = 0;
 			}
-			else if (setTime[Target] + 3.5 < saveTime) {
+			else if (setTime[Target] + (3.5 * 1000) < saveTime) {
 				result[menu - 1].quality = 2;
 			}
 			else if (saveTime < setTime[Target] * 0.65) {
 				result[menu - 1].quality = 1;
+			}
+
+			if (menu >= 3) {
+				return new Result(result, scoreTime);
 			}
 
 			menu++;
@@ -135,10 +151,10 @@ void Main::Draw() const {
 
 	DrawGraph(0, 0, Image, TRUE);
 	
-	DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[Target] / 1000); /*�ڕW����*/
-	DrawFormatString(300, 200, 0x0000000, "%0.2f", getTime / 1000);    /*�o�ߎ���*/
-	DrawFormatString(300, 250, 0x0000000, "%0.2f", saveTime / 1000);   /*�ۑ�����*/
-	DrawFormatString(300, 350, 0x0000000, "%0.2f", scoreTime / 1000);  /*�X�R�A*/
+	//DrawFormatString(300, 100, 0x0000000, "%0.2f", setTime[Target] / 1000); /*�ڕW����*/
+	//DrawFormatString(300, 200, 0x0000000, "%0.2f", getTime / 1000);    /*�o�ߎ���*/
+	//DrawFormatString(300, 250, 0x0000000, "%0.2f", saveTime / 1000);   /*�ۑ�����*/
+	//DrawFormatString(300, 350, 0x0000000, "%0.2f", scoreTime / 1000);  /*�X�R�A*/
 
 	if (Phase == 0) {
 		int sizeX, sizeY;
@@ -146,7 +162,13 @@ void Main::Draw() const {
 		DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) - (sizeY / 2), MaterialImg[Target], TRUE);
 
 		sizeX = GetDrawStringWidth("1品目", -1) / 2;
-		DrawFormatString(WIDTH / 2 - sizeX, 60, 0xff00, "%d品目", menu);
+		DrawFormatString(WIDTH / 2 - sizeX, 40, 0xff00, "%d品目", menu);
+
+		GetGraphSize(Button, &sizeX, &sizeY);
+		DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) + 140, Button, TRUE);
+
+		sizeX = GetDrawStringWidth("漬ける時間 00.00秒", -1) / 2;
+		DrawFormatString(WIDTH / 2 - sizeX, 600, 0xff00, "漬ける時間 %2.2f秒", setTime[Target] / 1000);
 	}
 	else if (Phase <= 2) {
 		int sizeX, sizeY;
@@ -160,6 +182,20 @@ void Main::Draw() const {
 		GetGraphSize(Pot[0], &sizeX, &sizeY);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), HEIGHT - Anime * 7, Pot[1], TRUE);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), -310 + Anime * 10, Pot[2], TRUE);
+
+		sizeX = GetDrawStringWidth("00.00", -1) / 2;
+		DrawFormatString(WIDTH / 2 - sizeX, 340, 0x000000, "%4.2f", getTime / 1000);
+
+		GetGraphSize(cat, &sizeX, &sizeY);
+		DrawGraph(WIDTH / 2 - sizeX / 2 - sizeX * 3 + (sizeX / 20) * CatAnime, HEIGHT / 2 - (sizeY / 2), cat, TRUE);
+
+		if (Phase == 2) {
+			GetGraphSize(Button, &sizeX, &sizeY);
+			DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) + 140, Button, TRUE);
+		}
+
+		sizeX = GetDrawStringWidth("漬ける時間 00.00秒", -1) / 2;
+		DrawFormatString(WIDTH / 2 - sizeX, 600, 0xff00, "漬ける時間 %2.2f秒", setTime[Target] / 1000);
 	
 	}
 	else if (Phase <= 4) {
@@ -168,11 +204,11 @@ void Main::Draw() const {
 		GetGraphSize(Pot[0], &sizeX, &sizeY);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), HEIGHT - Anime * 7, Pot[0], TRUE);
 
-		if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
+		if (saveTime < setTime[Target] +(3.5 * 1000) && setTime[Target] * 0.65 < saveTime) {
 			GetGraphSize(dishImg[Target], &sizeX, &sizeY);
 			DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) - (sizeY / 2) + Anime * 6, dishImg[Target], TRUE);
 		}
-		else if (setTime[Target] + 3.5 < saveTime) {
+		else if (setTime[Target] + (3.5 * 1000) < saveTime) {
 			GetGraphSize(rotten, &sizeX, &sizeY);
 			DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) - (sizeY / 2) + Anime * 6, rotten, TRUE);
 		}
@@ -185,10 +221,30 @@ void Main::Draw() const {
 		DrawGraph((WIDTH / 2) - (sizeX / 2), HEIGHT - Anime * 7, Pot[1], TRUE);
 		DrawGraph((WIDTH / 2) - (sizeX / 2), -310 + Anime * 10, Pot[2], TRUE);
 
+		sizeX = GetDrawStringWidth("00.00", -1) / 2;
+		DrawFormatString(WIDTH / 2 - sizeX, 40 + (5 * Anime) , 0x000000, "%4.2f", saveTime / 1000);
+
+		if (Phase == 4) {
+			GetGraphSize(Button, &sizeX, &sizeY);
+			DrawGraph((WIDTH / 2) - (sizeX / 2), (HEIGHT / 2) + 140, Button, TRUE);
+
+			sizeX = GetDrawStringWidth("ああああ", -1) / 2;
+
+			if (saveTime < setTime[Target] + (3.5 * 1000) && setTime[Target] * 0.65 < saveTime) {
+				DrawFormatString(WIDTH / 2 - sizeX, 600, 0xff00, "できた！", setTime[Target] / 1000);
+			}
+			else if (setTime[Target] + (3.5 * 1000) < saveTime) {
+				DrawFormatString(WIDTH / 2 - sizeX, 600, 0xff00, "遅すぎ！", setTime[Target] / 1000);
+			}
+			else if (saveTime < setTime[Target] * 0.65) {
+				DrawFormatString(WIDTH / 2 - sizeX, 600, 0xff00, "早すぎ！", setTime[Target] / 1000);
+			}
+		}
+
+		GetGraphSize(cat, &sizeX, &sizeY);
+		DrawTurnGraph(WIDTH / 2 - sizeX / 2 - sizeX * 3 + (sizeX / 20) * CatAnime, HEIGHT / 2 - (sizeY / 2), cat, TRUE);
+
 	}
-
-	/*���ԕ\��*/
-
 }
 
 void Main::InitPad() 
