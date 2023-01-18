@@ -42,7 +42,7 @@ Result::Result(CookResult result[3], float score[3]) {
 	for (int i = 0; i < 3; i++) {
 		this->result[i].type = result[i].type;
 		this->result[i].quality = result[i].quality;
-		this->score[i] = score[i] / 1000;
+		this->score[i] = score[i] / -1000;
 
 		if (this->result[i].quality)value++;
 	}
