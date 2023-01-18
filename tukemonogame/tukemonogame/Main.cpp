@@ -40,6 +40,7 @@ Main::Main() {
 	for (int i = 0; i < 3; i++) {
 		result[i].type = 0;
 		result[i].quality = 0;
+		scoreTime[i] = 0;
 	}
 
 	Phase = 0;
@@ -57,8 +58,6 @@ Main::Main() {
 	startTime = 0; //�X�^�[�g����
 
 	saveTime = 0; /*���ԕۑ�*/
-
-	scoreTime = 0; /*�X�R�A*/
 
 	timeState = 0; /*�I��*/
 
@@ -101,12 +100,7 @@ AbstractScene* Main::Update()
 		case 2:
 			getTime = 0; /*���Ԃ����Z�b�g*/
 
-			if (setTime[Target] <= saveTime) {
-				scoreTime += saveTime - setTime[Target]; /*�X�R�A�����߂�*/
-			}
-			else {
-				scoreTime += setTime[Target] - saveTime; /*�X�R�A�����߂�*/
-			}
+			scoreTime[menu - 1] = saveTime - setTime[Target]; /*�X�R�A�����߂�*/
 
 			timeState = 0;
 			Phase++;

@@ -8,32 +8,23 @@ class Result : public AbstractScene
 private:
 	int Target;			//�i�ڂ����߂�ϐ�
 
-	int MaterialImg[5];	//�ޗ��摜
-	int dishImg[5];		//�����摜
-	int Pot[3];	//��摜
-	int rotten;
+	int DishImg[5][3];	//料理画像
 	int cat;		//ねこ
 	int Button;		//ボタン
 
 	int Image;
+	int table;		//テーブル
+
+	int anime;		//アニメ
+	int value;		//評価
 
 	int menu;			//品目数
 	CookResult result[3];	//完成結果
-
-	int Phase;			//���o�i�s�x
-	int Anime;			//�A�j���[�V�����p
-	int CatAnime;		//ねこアニメ
-
-	float setTime[5]; /*���Ԑݒ�*/
-	float getTime; /*�o�ߎ��Ԏ擾*/
-	float startTime; //�X�^�[�g����
-	float saveTime; /*���ԕۑ�*/
-	float scoreTime; /*�X�R�A*/
-	int timeState;
+	float score[3];		//スコア時間
 
 public:
 	void InitPad();
-	Result(CookResult result[3], float score);
+	Result(CookResult result[3], float score[3]);
 	virtual ~Result() {};
 	virtual AbstractScene* Update() override;
 	virtual void Draw() const override;
