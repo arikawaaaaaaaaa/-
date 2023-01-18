@@ -10,6 +10,10 @@ private:
 
 	int Image;
 
+	int SoundTitle;			//タイトルの音楽
+	int SoundMoveCorsor;	//カーソル移動の効果音
+	int	SoundDecision;		//決定の効果音
+
 	int MenuY;
 	int MenuNum;
 

@@ -33,6 +33,11 @@ Main::Main() {
 	SetFontSize(100);
 	Image = LoadGraph("images/kitchen.png");
 
+	SoundMain = LoadSoundMem("sounds/main.mp3");
+	SoundTimerStart = LoadSoundMem("sounds/timer start.mp3");
+	SoundTrue = LoadSoundMem("sounds/true.mp3");
+	SoundFalse = LoadSoundMem("sounds/false.mp3");
+
 	menu = 1;
 	for (int i = 0; i < 3; i++) {
 		result[i].type = 0;
@@ -58,6 +63,8 @@ Main::Main() {
 
 	timeState = 0; /*�I��*/
 
+	PlaySoundMem(SoundMain, DX_PLAYTYPE_BACK, TRUE);
+
 }
 
 
@@ -67,18 +74,24 @@ AbstractScene* Main::Update()
 
 	if (Phase == 0) {
 		if (PAD_INPUT::OnClick(XINPUT_BUTTON_B)) Phase++;
+		
 	}
 	else if (Phase == 1) {
 		Anime++;
 		if (Anime >= 60) Phase++;
+
 	}
 	else if (Phase == 2) {
 		switch (timeState)
 		{
 		case 0:
+
+				if (CheckSoundMem(SoundTimerStart) == 0)PlaySoundMem(SoundTimerStart, DX_PLAYTYPE_BACK, TRUE);
+	
 				startTime = GetNowCount();
 
 				timeState = 1;
+
 			break;
 
 		case 1:
@@ -110,6 +123,19 @@ AbstractScene* Main::Update()
 		if (Anime == 0) {
 			CatAnime = 0;
 			Phase++;
+
+			if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
+				result[menu - 1].quality = 0;
+				PlaySoundMem(SoundTrue, DX_PLAYTYPE_BACK, TRUE);
+			}
+			else if (setTime[Target] + 3.5 < saveTime) {
+				result[menu - 1].quality = 2;
+				PlaySoundMem(SoundFalse, DX_PLAYTYPE_BACK, TRUE);
+			}
+			else if (saveTime < setTime[Target] * 0.65) {
+				result[menu - 1].quality = 1;
+				PlaySoundMem(SoundFalse, DX_PLAYTYPE_BACK, TRUE);
+			}
 		}
 	}
 	else if (Phase == 4) {
@@ -117,15 +143,6 @@ AbstractScene* Main::Update()
 			Phase = 0;
 
 			result[menu - 1].type = Target;
-			if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
-				result[menu - 1].quality = 0;
-			}
-			else if (setTime[Target] + (3.5 * 1000) < saveTime) {
-				result[menu - 1].quality = 2;
-			}
-			else if (saveTime < setTime[Target] * 0.65) {
-				result[menu - 1].quality = 1;
-			}
 
 			if (menu >= 3) {
 				return new Result(result, scoreTime);
