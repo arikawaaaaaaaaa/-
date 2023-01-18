@@ -1,6 +1,13 @@
 #pragma once
 #include "SceneManager.h"
 #include <DxLib.h>
+
+struct Result	//完成結果
+{
+	int type;	//種類
+	int quality;	//出来の良さ 0:良い 1:早い 2:遅い
+};
+
 class Main : public AbstractScene
 {
 private:
@@ -8,13 +15,18 @@ private:
 
 	int MaterialImg[5];	//�ޗ��摜
 	int dishImg[5];		//�����摜
-	int Pot[3];			//��摜
+	int Pot[3];	//��摜
+	int rotten;
+
 	int Image;
+
+	int menu;			//品目数
+	Result result[3];	//完成結果
 
 	int Phase;			//���o�i�s�x
 	int Anime;			//�A�j���[�V�����p
 
-	float setTime[3]; /*���Ԑݒ�*/
+	float setTime[5]; /*���Ԑݒ�*/
 	float getTime; /*�o�ߎ��Ԏ擾*/
 	float startTime; //�X�^�[�g����
 	float saveTime; /*���ԕۑ�*/
