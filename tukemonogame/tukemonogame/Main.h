@@ -20,6 +20,11 @@ private:
 
 	int Image;
 
+	int SoundMain;				//ゲームメインの音楽
+	int SoundTimerStart;		//タイマーの開始効果音
+	int SoundTrue;				//成功時の効果音
+	int SoundFalse;				//失敗時の効果音
+
 	int menu;			//品目数
 	Result result[3];	//完成結果
 

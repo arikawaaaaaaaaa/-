@@ -11,9 +11,15 @@ Title::Title() {
 
 	Image = LoadGraph("images/title.png");
 
+	SoundTitle = LoadSoundMem("sounds/title.mp3");
+	SoundMoveCorsor = LoadSoundMem("sounds/moving-cursor-4.mp3");
+	SoundDecision = LoadSoundMem("sounds/決定ボタンを押す35.mp3");
+
 	//メニュー選択
 	MenuY = 0;
 	MenuNum = 0;
+
+	PlaySoundMem(SoundTitle, DX_PLAYTYPE_BACK, TRUE);
 
 }
 
@@ -26,10 +32,13 @@ AbstractScene* Title::Update() {
 		//下方向
 		if (flgY == 0 && JoyPadY < -MARGIN) {
 			if (++MenuNum > 1) MenuNum = 0;
+			PlaySoundMem(SoundMoveCorsor, DX_PLAYTYPE_BACK, TRUE);
+
 		}
 		//上方向
 		if (flgY == 0 && JoyPadY > MARGIN) {
 			if (--MenuNum < 0) MenuNum = 1;
+			PlaySoundMem(SoundMoveCorsor, DX_PLAYTYPE_BACK, TRUE);
 		}
 
 		//メニュー選択
@@ -37,9 +46,12 @@ AbstractScene* Title::Update() {
 			switch (MenuNum)
 			{
 			case 0:
+				StopSoundMem(SoundTitle);
+				PlaySoundMem(SoundDecision, DX_PLAYTYPE_BACK, TRUE);
 				return new Main();	//ゲームへ
 				break;
 			case 1:
+				PlaySoundMem(SoundDecision, DX_PLAYTYPE_BACK, TRUE);
 				return new End();             //ゲーム終了
 				break;
 			}
