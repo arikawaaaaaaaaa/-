@@ -6,6 +6,9 @@
 private:
 
 	int Image;
+	int Imagemoto;
+
+	int Anim;
 
 
 public:
