@@ -1,6 +1,7 @@
 ﻿#include "Result.h"
 #include "Title.h"
 #include "PadInput.h"
+#include "Main.h"
 
 #define WIDTH 1280
 #define HEIGHT 720

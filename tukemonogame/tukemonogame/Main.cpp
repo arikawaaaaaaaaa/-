@@ -126,12 +126,15 @@ AbstractScene* Main::Update()
 
 			if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
 				result[menu - 1].quality = 0;
+				PlaySoundMem(SoundTrue, DX_PLAYTYPE_BACK, TRUE);
 			}
 			else if (setTime[Target] + (3.5 * 1000) < saveTime) {
 				result[menu - 1].quality = 2;
+				PlaySoundMem(SoundFalse, DX_PLAYTYPE_BACK, TRUE);
 			}
 			else if (saveTime < setTime[Target] * 0.65) {
 				result[menu - 1].quality = 1;
+				PlaySoundMem(SoundFalse, DX_PLAYTYPE_BACK, TRUE);
 			}
 		}
 	}
@@ -142,6 +145,7 @@ AbstractScene* Main::Update()
 			result[menu - 1].type = Target;
 
 			if (menu >= 3) {
+				StopSoundMem(SoundMain);
 				return new Result(result, scoreTime);
 			}
 
