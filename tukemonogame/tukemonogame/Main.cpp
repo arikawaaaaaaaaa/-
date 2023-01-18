@@ -34,6 +34,9 @@ Main::Main() {
 	Image = LoadGraph("images/kitchen.png");
 
 	menu = 1;
+	for (int i = 0; i < 5; i++) {
+		Cooked[i] = false;
+	}
 	for (int i = 0; i < 3; i++) {
 		result[i].type = 0;
 		result[i].quality = 0;
@@ -138,7 +141,10 @@ AbstractScene* Main::Update()
 			}
 
 			menu++;
-			Target = GetRand(4);
+			Cooked[Target] = true;
+			while (Cooked[Target]) {
+				Target = GetRand(4);
+			}
 		}
 
 		/* ���Ԍo�ߏ��� */

@@ -18,7 +18,7 @@ private:
 	int Image;
 
 	int menu;			//品目数
-
+	bool Cooked[5];		//料理の被り避け
 	CookResult result[3];	//完成結果
 
 	int Phase;			//���o�i�s�x
