@@ -29,7 +29,7 @@ private:
 	float getTime; /*�o�ߎ��Ԏ擾*/
 	float startTime; //�X�^�[�g����
 	float saveTime; /*���ԕۑ�*/
-	float scoreTime; /*�X�R�A*/
+	float scoreTime[3]; /*�X�R�A*/
 	int timeState; 
 
 public:
