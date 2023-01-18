@@ -11,6 +11,8 @@ End::End() {
 	Image = LoadGraph("images/end.png");
 	Imagemoto = LoadGraph("images/kitchen.png");
 	Anim = 600;
+	SoundEnd = LoadSoundMem("sounds/End.mp3");
+	PlaySoundMem(SoundEnd, DX_PLAYTYPE_BACK, TRUE);
 }
 
 AbstractScene* End::Update() {

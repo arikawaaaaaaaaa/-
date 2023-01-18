@@ -145,6 +145,7 @@ AbstractScene* Main::Update()
 			result[menu - 1].type = Target;
 
 			if (menu >= 3) {
+				StopSoundMem(SoundMain);
 				return new Result(result, scoreTime);
 			}
 

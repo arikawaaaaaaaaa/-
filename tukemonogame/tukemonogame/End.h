@@ -10,6 +10,7 @@ private:
 
 	int Anim;
 
+	int SoundEnd;			//ƒGƒ“ƒh‚Ì‰¹Šy
 
 public:
 	void InitPad();
