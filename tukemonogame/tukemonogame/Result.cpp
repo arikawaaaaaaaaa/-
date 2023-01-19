@@ -39,10 +39,10 @@ Result::Result(CookResult result[3], float score[3]) {
 
 	SoundMain = LoadSoundMem("sounds/main.mp3");			//BGM
 	SoundScore = LoadSoundMem("sounds/ResultScore.mp3");	//結果発表SE
-	SoundMostHight = LoadSoundMem("sounds/MH_sound.mp3");
-	SoundHight = LoadSoundMem("sounds/H_sound.mp3");
-	SoundLow = LoadSoundMem("sounds/L_sound.mp3");
-	SoundMostLow = LoadSoundMem("sounds/ML_sound.mp3");
+	SoundResultScore[0] = LoadSoundMem("sounds/MH_sound.mp3");		//１：上手にできたの効果音
+	SoundResultScore[1] = LoadSoundMem("sounds/H_sound.mp3");		//２：大体上手にできたの効果音
+	SoundResultScore[2] = LoadSoundMem("sounds/L_sound.mp3");		//３：うまくできなかった…の効果音
+	SoundResultScore[3] = LoadSoundMem("sounds/ML_sound.mp3");		//４：残念！の効果音
 
 	menu = 1;
 
@@ -61,7 +61,7 @@ AbstractScene* Result::Update()
 	InitPad();
 	anime++;		//アニメーション進行
 
-	if (CheckSoundMem(SoundMain) == 0)PlaySoundMem(SoundMain, DX_PLAYTYPE_BACK, FALSE);	//BGM再生
+	//if (CheckSoundMem(SoundMain) == 0)PlaySoundMem(SoundMain, DX_PLAYTYPE_BACK, FALSE);	//BGM再生
 
 	if (anime == 60)PlaySoundMem(SoundScore, DX_PLAYTYPE_BACK, TRUE);		//目標時間に合わせて効果音
 	if (anime == 80)PlaySoundMem(SoundScore, DX_PLAYTYPE_BACK, TRUE);		//目標時間に合わせて効果音
@@ -72,24 +72,7 @@ AbstractScene* Result::Update()
 		return new Title();													//タイトル画面へ
 	}
 	if (anime == 140) {
-		switch (value)
-		{
-		case 0:
-			PlaySoundMem(SoundMostHight, DX_PLAYTYPE_BACK, TRUE);
-			break;
-
-		case 1:
-			PlaySoundMem(SoundHight, DX_PLAYTYPE_BACK, TRUE);
-			break;
-
-		case 2:
-			PlaySoundMem(SoundLow, DX_PLAYTYPE_BACK, TRUE);
-			break;
-
-		case 3:
-			PlaySoundMem(SoundMostLow, DX_PLAYTYPE_BACK, TRUE);
-			break;
-		}
+		PlaySoundMem(SoundResultScore[value], DX_PLAYTYPE_BACK, TRUE);
 	}
 
 	return this;
