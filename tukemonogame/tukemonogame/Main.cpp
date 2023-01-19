@@ -124,11 +124,11 @@ AbstractScene* Main::Update()
 			CatAnime = 0;
 			Phase++;
 
-			if (saveTime < setTime[Target] + 3.5 && setTime[Target] * 0.65 < saveTime) {
+			if (saveTime < setTime[Target] + (3.5*1000) && setTime[Target] * 0.65 < saveTime) {
 				result[menu - 1].quality = 0;
 				PlaySoundMem(SoundTrue, DX_PLAYTYPE_BACK, TRUE);
 			}
-			else if (setTime[Target] + 3.5 < saveTime) {
+			else if (setTime[Target] + (3.5 * 1000) < saveTime) {
 				result[menu - 1].quality = 2;
 				PlaySoundMem(SoundFalse, DX_PLAYTYPE_BACK, TRUE);
 			}

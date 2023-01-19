@@ -38,6 +38,11 @@ Result::Result(CookResult result[3], float score[3]) {
 	Image = LoadGraph("images/kitchen.png");
 	table = LoadGraph("images/table.png");
 
+	SoundMostHight = LoadSoundMem("sounds/MH_sound.mp3");
+	SoundHight = LoadSoundMem("sounds/H_sound.mp3");
+	SoundLow = LoadSoundMem("sounds/L_sound.mp3");
+	SoundMostLow = LoadSoundMem("sounds/ML_sound.mp3");
+
 	menu = 1;
 	for (int i = 0; i < 3; i++) {
 		this->result[i].type = result[i].type;
@@ -54,9 +59,31 @@ AbstractScene* Result::Update()
 	InitPad();
 	anime++;
 
+
 	if (anime > 180 && PAD_INPUT::OnClick(XINPUT_BUTTON_B)) {
 		return new Title();
 	}
+	if (anime == 140) {
+		switch (value)
+		{
+		case 0:
+			PlaySoundMem(SoundMostHight, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 1:
+			PlaySoundMem(SoundHight, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 2:
+			PlaySoundMem(SoundLow, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 3:
+			PlaySoundMem(SoundMostLow, DX_PLAYTYPE_BACK, TRUE);
+			break;
+		}
+	}
+
 	return this;
 }
 
