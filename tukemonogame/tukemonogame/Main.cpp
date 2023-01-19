@@ -37,6 +37,7 @@ Main::Main() {
 	SoundTimerStart = LoadSoundMem("sounds/timer start.mp3");
 	SoundTrue = LoadSoundMem("sounds/true.mp3");
 	SoundFalse = LoadSoundMem("sounds/false.mp3");
+	SoundCat = LoadSoundMem("sounds/cat1a.mp3");
 
 	menu = 1;
 	for (int i = 0; i < 3; i++) {
@@ -97,7 +98,10 @@ AbstractScene* Main::Update()
 		case 1:
 			getTime = 0 + (GetNowCount() - startTime); /*�v�����Ԃ��v��*/
 
-			if (setTime[Target] * 0.3 < getTime && CatAnime < 60)CatAnime++;
+			if (setTime[Target] * 0.3 < getTime && CatAnime < 60) {
+				if (CatAnime == 0)PlaySoundMem(SoundCat, DX_PLAYTYPE_BACK, TRUE);
+				CatAnime++;
+			}
 
 			if (PAD_INPUT::OnClick(XINPUT_BUTTON_B))
 			{

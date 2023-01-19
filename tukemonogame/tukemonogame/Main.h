@@ -21,6 +21,7 @@ private:
 	int SoundTimerStart;		//タイマーの開始効果音
 	int SoundTrue;				//成功時の効果音
 	int SoundFalse;				//失敗時の効果音
+	int SoundCat;				//猫の効果音
 
 	int menu;			//品目数
 

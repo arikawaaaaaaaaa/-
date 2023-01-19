@@ -13,7 +13,7 @@ Title::Title() {
 
 	SoundTitle = LoadSoundMem("sounds/title.mp3");
 	SoundMoveCorsor = LoadSoundMem("sounds/moving-cursor-4.mp3");
-	SoundDecision = LoadSoundMem("sounds/決定ボタンを押す35.mp3");
+	SoundDecision = LoadSoundMem("sounds/push.mp3");
 
 	//メニュー選択
 	MenuY = 0;

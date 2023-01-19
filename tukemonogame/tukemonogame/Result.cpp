@@ -38,6 +38,8 @@ Result::Result(CookResult result[3], float score[3]) {
 	Image = LoadGraph("images/kitchen.png");
 	table = LoadGraph("images/table.png");
 
+	SoundMain = LoadSoundMem("sounds/main.mp3");
+
 	menu = 1;
 	for (int i = 0; i < 3; i++) {
 		this->result[i].type = result[i].type;
@@ -54,7 +56,10 @@ AbstractScene* Result::Update()
 	InitPad();
 	anime++;
 
+	if (CheckSoundMem(SoundMain) == 0)PlaySoundMem(SoundMain, DX_PLAYTYPE_BACK, FALSE);
+
 	if (anime > 180 && PAD_INPUT::OnClick(XINPUT_BUTTON_B)) {
+		StopSoundMem(SoundMain);
 		return new Title();
 	}
 	return this;

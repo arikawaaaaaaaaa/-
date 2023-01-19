@@ -15,6 +15,8 @@ private:
 	int Image;
 	int table;		//テーブル
 
+	int SoundMain;			//ゲームメインの音楽
+
 	int anime;		//アニメ
 	int value;		//評価
 
