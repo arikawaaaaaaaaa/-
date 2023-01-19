@@ -7,6 +7,7 @@ class Main : public AbstractScene
 {
 private:
 	int Target;			//料理の種類を決める変数
+	bool Cooked[5];		//被り避け
 
 	int MaterialImg[5];	//食材の完成前
 	int dishImg[5];		//食材の完成後

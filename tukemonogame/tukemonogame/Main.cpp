@@ -8,6 +8,9 @@
 
 Main::Main() {
 	Target = GetRand(4);			//作る品を決める
+	for (int i = 0; i < 5; i++) {
+		Cooked[i] = false;
+	}
 
 	MaterialImg[0] = LoadGraph("images/hakusai.png");			//白菜の画像
 	MaterialImg[1] = LoadGraph("images/hakusai.png");			//白菜の画像
@@ -159,7 +162,11 @@ AbstractScene* Main::Update()
 			}
 
 			menu++;										//品目数を増やす
-			Target = GetRand(4);						//作る品を抽選
+
+			Cooked[Target] = true;
+			while (Cooked[Target]) {					//作る品を抽選
+				Target = GetRand(4);
+			}
 		}
 
 		/*時間経過処理*/
