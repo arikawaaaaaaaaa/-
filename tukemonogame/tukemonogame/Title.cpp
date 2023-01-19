@@ -51,6 +51,7 @@ AbstractScene* Title::Update() {
 				return new Main();	//ƒQ[ƒ€‚Ö
 				break;
 			case 1:
+				StopSoundMem(SoundTitle);
 				PlaySoundMem(SoundDecision, DX_PLAYTYPE_BACK, TRUE);
 				return new End();             //ƒQ[ƒ€I—¹
 				break;
