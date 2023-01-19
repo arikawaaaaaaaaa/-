@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "SceneManager.h"
 #include "common.h"
 #include <DxLib.h>
@@ -6,16 +6,16 @@
 class Main : public AbstractScene
 {
 private:
-	int Target;			//�i�ڂ����߂�ϐ�
+	int Target;			//料理の種類を決める変数
 
-	int MaterialImg[5];	//�ޗ��摜
-	int dishImg[5];		//�����摜
-	int Pot[3];	//��摜
-	int rotten;
+	int MaterialImg[5];	//食材の完成前
+	int dishImg[5];		//食材の完成後
+	int Pot[3];			//壺
+	int rotten;			//失敗料理
 	int cat;		//ねこ
 	int Button;		//ボタン
 
-	int Image;
+	int Image;		//背景画像
 
 	int SoundMain;				//ゲームメインの音楽
 	int SoundTimerStart;		//タイマーの開始効果音
@@ -27,15 +27,15 @@ private:
 
 	CookResult result[3];	//完成結果
 
-	int Phase;			//���o�i�s�x
-	int Anime;			//�A�j���[�V�����p
+	int Phase;			//ゲーム進行
+	int Anime;			//アニメーション進行
 	int CatAnime;		//ねこアニメ
 
-	float setTime[5]; /*���Ԑݒ�*/
-	float getTime; /*�o�ߎ��Ԏ擾*/
-	float startTime; //�X�^�[�g����
-	float saveTime; /*���ԕۑ�*/
-	float scoreTime[3]; /*�X�R�A*/
+	float setTime[5];	/*時間設定*/
+	float getTime;		/*経過時間*/
+	float startTime;	//スタート時間
+	float saveTime;		/*時間保存*/
+	float scoreTime[3]; /*スコア*/
 	int timeState; 
 
 public:

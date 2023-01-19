@@ -6,7 +6,6 @@
 class Result : public AbstractScene
 {
 private:
-	int Target;			//�i�ڂ����߂�ϐ�
 
 	int DishImg[5][3];	//料理画像
 	int cat;		//ねこ
@@ -16,6 +15,7 @@ private:
 	int table;		//テーブル
 
 	int SoundMain;			//ゲームメインの音楽
+	int SoundScore;			//スコアの効果音
 
 	int anime;		//アニメ
 	int value;		//評価
