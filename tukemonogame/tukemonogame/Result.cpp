@@ -49,7 +49,8 @@ Result::Result(CookResult result[3], float score[3]) {
 	for (int i = 0; i < 3; i++) {
 		this->result[i].type = result[i].type;			//料理の種類
 		this->result[i].quality = result[i].quality;	//料理の出来
-		this->score[i] = (this->score[i] == 0.f) ? 0.f : score[i] / -1000;				//目標時間との差
+		this->score[i] = score[i] / -1000;				//目標時間との差
+		if (this->score[i] == -0)this->score[i] = 0;
 
 		if (this->result[i].quality)value++;			//失敗しているなら失敗数加算
 	}
