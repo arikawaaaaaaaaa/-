@@ -1,4 +1,4 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "SceneManager.h"
 #include "Title.h"
 #include "PadInput.h"
@@ -9,37 +9,37 @@
 #define FLAME 60
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	//ƒEƒCƒ“ƒhƒEƒ‚[ƒhEƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh‚Ì•ÏX‚ğs‚¤
-	ChangeWindowMode(TRUE);   //(TRUE):ƒEƒCƒ“ƒhƒ‚[ƒh‚Å‹N“®E(FALSE):ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh‚Å‹N“®
+	//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ãƒ»ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰ã®å¤‰æ›´ã‚’è¡Œã†
+	ChangeWindowMode(TRUE);   //(TRUE):ã‚¦ã‚¤ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•ãƒ»(FALSE):ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•
 
-	//ƒEƒCƒ“ƒhƒEƒTƒCƒY‚Ì•ÏX
+	//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®å¤‰æ›´
 	SetGraphMode(WIDTH, HEIGHT, 32);
-	SetMainWindowText("MINI GAME");
+	SetMainWindowText("ã¤ã‘ã‚‚ã®ã¤ãã‚‹ï¼");
 
-	//•`‰ææ‚Ìw’è
+	//æç”»å…ˆã®æŒ‡å®š
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	//ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
+	//ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
 	if (DxLib_Init() == -1)   return -1;
 
 	SceneManager sceneMng(new Title());
 
-	float NextTime = GetNowCount();		//ƒtƒŒ[ƒ€–ˆ‚ÌŒo‰ßŠÔ
+	float NextTime = GetNowCount();		//ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®çµŒéæ™‚é–“
 
 	while (ProcessMessage() == 0 && sceneMng.Update() != nullptr || NULL) {
 		PAD_INPUT::UpdateKey();
-		//ESCAPEƒL[‚ÅI—¹
+		//ESCAPEã‚­ãƒ¼ã§çµ‚äº†
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) DxLib_End();
 		//if (GetJoypadXInputState(DX_INPUT_KEY_PAD1 & PAD_INPUT_2))
-		//BACKƒL[‚ÅI—¹
+		//BACKã‚­ãƒ¼ã§çµ‚äº†
 		if (PAD_INPUT::OnClick(XINPUT_BUTTON_BACK)) DxLib_End();
 		ClearDrawScreen();
 
 		sceneMng.Draw();
 
-		NextTime += 1000.0f / FLAME;					//1ƒtƒŒ[ƒ€‚²‚Æ‚É 1000/FLAMEƒ~ƒŠ•b‚©‚©‚é
-		if (NextTime > GetNowCount()) {					//Œo‰ßƒtƒŒ[ƒ€*NextTime•bŒo‰ß‚µ‚½H
-			WaitTimer((int)NextTime - GetNowCount());	//‚µ‚Ä‚È‚¢‚È‚çŒo‰ß‚·‚é‚Ü‚Å‘Ò‚Â
+		NextTime += 1000.0f / FLAME;					//1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã« 1000/FLAMEãƒŸãƒªç§’ã‹ã‹ã‚‹
+		if (NextTime > GetNowCount()) {					//çµŒéãƒ•ãƒ¬ãƒ¼ãƒ *NextTimeç§’çµŒéã—ãŸï¼Ÿ
+			WaitTimer((int)NextTime - GetNowCount());	//ã—ã¦ãªã„ãªã‚‰çµŒéã™ã‚‹ã¾ã§å¾…ã¤
 		}
 
 		ScreenFlip();
