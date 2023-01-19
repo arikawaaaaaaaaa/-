@@ -14,8 +14,13 @@ private:
 	int Image;
 	int table;		//テーブル
 
+
 	int SoundMain;			//ゲームメインの音楽
 	int SoundScore;			//スコアの効果音
+	int SoundMostHight;		//上手にできたの効果音
+	int SoundHight;			//大体上手にできたの効果音
+	int SoundLow;			//うまくできなかった…の効果音
+	int SoundMostLow;		//残念！の効果音
 
 	int anime;		//アニメ
 	int value;		//評価

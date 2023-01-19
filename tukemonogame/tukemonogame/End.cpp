@@ -36,6 +36,7 @@ AbstractScene* End::Update() {
 		DrawString(580, Anim + 40 * 3 ,  "音楽\n こんとどぅふぇ\n https://conte-de-fees.com/\n", 0x000000, 0xffffff);
 		DrawString(580, Anim + 40 * 6, "効果音\n フリー効果音・無料効果音素材\n　https://taira-komori.jpn.org/\n", 0x000000, 0xffffff);
 		DrawString(600, Anim + 40 * 9, "OtoLogic\n https://otologic.jp/", 0x000000, 0xffffff);
+		DrawString(600, Anim + 40 * 11, "効果音ラボ\n https://soundeffect-lab.info/", 0x000000, 0xffffff);
 		ScreenFlip(); 
 	}
 	DrawGraph(0, 0, Image, FALSE);

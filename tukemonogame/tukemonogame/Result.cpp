@@ -39,6 +39,12 @@ Result::Result(CookResult result[3], float score[3]) {
 
 	SoundMain = LoadSoundMem("sounds/main.mp3");			//BGM
 	SoundScore = LoadSoundMem("sounds/ResultScore.mp3");	//結果発表SE
+	SoundMostHight = LoadSoundMem("sounds/MH_sound.mp3");
+	SoundHight = LoadSoundMem("sounds/H_sound.mp3");
+	SoundLow = LoadSoundMem("sounds/L_sound.mp3");
+	SoundMostLow = LoadSoundMem("sounds/ML_sound.mp3");
+
+	menu = 1;
 
 	for (int i = 0; i < 3; i++) {
 		this->result[i].type = result[i].type;			//料理の種類
@@ -65,6 +71,27 @@ AbstractScene* Result::Update()
 		StopSoundMem(SoundMain);											//BGM終了
 		return new Title();													//タイトル画面へ
 	}
+	if (anime == 140) {
+		switch (value)
+		{
+		case 0:
+			PlaySoundMem(SoundMostHight, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 1:
+			PlaySoundMem(SoundHight, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 2:
+			PlaySoundMem(SoundLow, DX_PLAYTYPE_BACK, TRUE);
+			break;
+
+		case 3:
+			PlaySoundMem(SoundMostLow, DX_PLAYTYPE_BACK, TRUE);
+			break;
+		}
+	}
+
 	return this;
 }
 
