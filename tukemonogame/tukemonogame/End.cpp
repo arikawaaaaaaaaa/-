@@ -32,10 +32,10 @@ AbstractScene* End::Update() {
 		DrawString(300, Anim + 40 * 4, "喜納 司貴\n", 0x000000, 0xffffff);
 		DrawString(50, Anim + 40 * 5, "新垣 大喜\n", 0x000000, 0xffffff);
 		DrawString(580, Anim, "お借りした素材一覧（敬称略）\n", 0x000000, 0xffffff);
-		DrawString(600, Anim + 40 , "画像\nいらすとや\n", 0x000000, 0xffffff);
-		DrawString(600, Anim + 40 * 3 ,  "音楽\nこんとどぅふぇ\nhttps://conte-de-fees.com/\n", 0x000000, 0xffffff);
-		DrawString(600, Anim + 40 * 6, "効果音\nフリー効果音・無料効果音素材\nhttps://taira-komori.jpn.org/\n", 0x000000, 0xffffff);
-		DrawString(600, Anim + 40 * 9, "OtoLogic\nhttps://otologic.jp/", 0x000000, 0xffffff);
+		DrawString(580, Anim + 40 , "画像\n いらすとや\n", 0x000000, 0xffffff);
+		DrawString(580, Anim + 40 * 3 ,  "音楽\n こんとどぅふぇ\n https://conte-de-fees.com/\n", 0x000000, 0xffffff);
+		DrawString(580, Anim + 40 * 6, "効果音\n フリー効果音・無料効果音素材\n　https://taira-komori.jpn.org/\n", 0x000000, 0xffffff);
+		DrawString(600, Anim + 40 * 9, "OtoLogic\n https://otologic.jp/", 0x000000, 0xffffff);
 		ScreenFlip(); 
 	}
 	DrawGraph(0, 0, Image, FALSE);
